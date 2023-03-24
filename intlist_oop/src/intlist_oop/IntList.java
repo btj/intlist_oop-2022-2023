@@ -81,6 +81,9 @@ public class IntList {
 	 *       |     old(getElements()), 0, getElements().length)
 	 */
 	public void removeLast() {
+		if (elements.length == 0)
+			throw new IllegalStateException("The IntList object is empty");
+		
 		elements = Arrays.copyOf(elements, elements.length - 1);
 	}
 	
