@@ -48,8 +48,8 @@ public class IntList {
 	 * @throws IllegalStateException | getElements().length == 0
 	 * @mutates | this
 	 * @post | getElements().length == old(getElements().length) - 1
-	 * @post | Arrays.equals(getElements(), 0, old(getElements().length),
-	 *       |     old(getElements()), 0, old(getElements().length))
+	 * @post | Arrays.equals(getElements(), 0, getElements().length,
+	 *       |     old(getElements()), 0, getElements().length)
 	 */
 	public void removeLast() { throw new RuntimeException("Not yet implemented"); }
 	
