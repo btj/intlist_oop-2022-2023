@@ -15,6 +15,21 @@ import java.util.stream.IntStream;
 //
 // 3. Declare and document the constructors, factory methods and mutators
 
+// Procedure for implementing a data abstraction
+//
+// 1. Declare the fields and indicate which are the representation objects of 'this'
+//    = define the raw concrete state space
+//             = the values of the fields and the states of the representation objects
+//
+// 2. Define the set of valid concrete states
+//    = write down the representation invariants
+//
+// 3. Define the mapping from concrete states to abstract states =
+//    = implement the inspectors
+//    Should satisfy the property that valid concrete states are mapped to valid abstract states
+//
+// 4. Implement the constructors, factory methods, and mutators
+
 /**
  * Each instance of this class stores a sequence of int values.
  * 
@@ -23,9 +38,16 @@ import java.util.stream.IntStream;
 public class IntList {
 	
 	/**
+	 * @invar | elements != null
+	 * 
+	 * @representationObject
+	 */
+	private int[] elements;
+	
+	/**
 	 * @creates | result
 	 */
-	public int[] getElements() { throw new RuntimeException("Not yet implemented"); }
+	public int[] getElements() { return elements.clone(); }
 	
 	/**
 	 * @throws IllegalArgumentException | elements == null
@@ -33,7 +55,11 @@ public class IntList {
 	 * @post The sequence of elements stored in this object equals the given sequence of elements.
 	 *      | Arrays.equals(this.getElements(), elements)
 	 */
-	public IntList(int[] elements) { throw new RuntimeException("Not yet implemented"); }
+	public IntList(int[] elements) {
+		if (elements == null)
+			throw new IllegalArgumentException("`elements` is null");
+		this.elements = elements.clone();
+	}
 
 	/**
 	 * @mutates | this
@@ -42,15 +68,20 @@ public class IntList {
 	 *       |     getElements()[i] == old(getElements())[i])
 	 * @post | getElements()[getElements().length - 1] == element
 	 */
-	public void add(int element) { throw new RuntimeException("Not yet implemented"); }
+	public void add(int element) {
+		elements = Arrays.copyOf(elements, elements.length + 1);
+		elements[elements.length - 1] = element;
+	}
 	
 	/**
 	 * @throws IllegalStateException | getElements().length == 0
 	 * @mutates | this
 	 * @post | getElements().length == old(getElements().length) - 1
-	 * @post | Arrays.equals(getElements(), 0, old(getElements().length),
-	 *       |     old(getElements()), 0, old(getElements().length))
+	 * @post | Arrays.equals(getElements(), 0, getElements().length,
+	 *       |     old(getElements()), 0, getElements().length)
 	 */
-	public void removeLast() { throw new RuntimeException("Not yet implemented"); }
+	public void removeLast() {
+		elements = Arrays.copyOf(elements, elements.length - 1);
+	}
 	
 }
